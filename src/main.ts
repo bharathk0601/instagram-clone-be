@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 
 import { Logger } from '@/shared/logger';
 import { UnCaughtExceptionFilter } from '@/filters';
+import { TimeoutInterceptor } from '@/interceptor';
+import { ValidationPipe } from '@/pipe';
 
 import { AppModule } from './app.module';
-import { TimeoutInterceptor } from '@/interceptor';
 
 /**
  *
