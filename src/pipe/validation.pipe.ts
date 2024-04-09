@@ -1,13 +1,19 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
-import { validate, ValidatorOptions } from 'class-validator';
+import { validate, ValidationError, ValidatorOptions } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
-  private readonly validatorOptions: ValidatorOptions;
+  private readonly validatorOptions: ValidatorOptions = {
+    stopAtFirstError: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  };
 
   constructor(validatorOptions?: ValidatorOptions) {
-    this.validatorOptions = validatorOptions;
+    this.validatorOptions = { ...this.validatorOptions, ...validatorOptions };
   }
 
   async transform(value: any, { metatype }: ArgumentMetadata) {
@@ -16,8 +22,15 @@ export class ValidationPipe implements PipeTransform<any> {
     }
     const object = plainToInstance(metatype, value);
     const errors = await validate(object, this.validatorOptions);
-    if (errors.length > 0) {
-      throw new BadRequestException('Validation failed');
+
+    const firstError = errors?.[0];
+    let children: ValidationError[] = firstError?.children || [];
+    while (children?.length) {
+      children = children[0]?.children;
+    }
+
+    if (firstError) {
+      throw new BadRequestException(firstError.constraints[Object.keys(firstError.constraints)[0]]);
     }
     return value;
   }
