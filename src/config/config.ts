@@ -10,6 +10,8 @@ class Config {
   private readonly POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD;
   private readonly POSTGRES_DATABASE: string = process.env.POSTGRES_DATABASE;
 
+  private readonly REDIS_URL: string = process.env.REDIS_URL;
+
   private readonly THROTTLE_LIMIT: number = 20;
   private readonly THROTTLE_TTL: number = 1000;
 
