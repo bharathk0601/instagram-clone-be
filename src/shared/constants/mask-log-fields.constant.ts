@@ -1,5 +1,5 @@
 export const reqFields = {
-  'POST /login': ['password'],
+  'POST /user': ['name'],
 };
 
 export const resFields = {};
