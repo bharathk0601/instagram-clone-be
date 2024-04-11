@@ -9,16 +9,14 @@ class Config implements IConfig {
   private readonly POSTGRES_USER: string = process.env.POSTGRES_USER;
   private readonly POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD;
   private readonly POSTGRES_DATABASE: string = process.env.POSTGRES_DATABASE;
-  private readonly THROTTLE_LIMIT: number = 10;
-  private readonly THROTTLE_TTL: number = 5000;
+  private readonly THROTTLE_LIMIT: number = 20;
+  private readonly THROTTLE_TTL: number = 1000;
 
   constructor() {
     switch (this.ENVIRONMENT) {
       case Environment.development:
         break;
       case Environment.staging:
-        this.THROTTLE_LIMIT = 200;
-        this.THROTTLE_TTL = 5000;
         break;
       case Environment.production:
         break;

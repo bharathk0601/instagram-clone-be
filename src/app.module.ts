@@ -16,7 +16,9 @@ import { SharedModule } from './module/shared/shared.module';
 @Module({
   imports: [
     // TypeOrmModule.forRoot(DbConfig),
-    ThrottlerModule.forRoot([{ ttl: config.get('THROTTLE_TTL'), limit: config.get('THROTTLE_LIMIT') }]),
+    ThrottlerModule.forRoot({
+      throttlers: [{ ttl: config.get('THROTTLE_TTL'), limit: config.get('THROTTLE_LIMIT') }],
+    }),
     UserModule,
     PostModule,
     LikeModule,
