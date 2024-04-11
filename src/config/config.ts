@@ -19,12 +19,19 @@ class Config {
 
   constructor() {
     switch (this.ENVIRONMENT) {
-      case Environment.development:
+      case Environment.DEVELOPMENT:
         break;
-      case Environment.staging:
+      case Environment.STAGING:
         break;
-      case Environment.production:
+      case Environment.PRODUCTION:
         break;
+    }
+
+    const configKeys = Object.keys(this);
+    for (const key of Object.values(Econfig)) {
+      if (!configKeys.includes(key)) {
+        logger.warn(`${key} is not present in config class.`);
+      }
     }
   }
 
@@ -33,24 +40,16 @@ class Config {
   }
 
   public isDev(): boolean {
-    return this.ENVIRONMENT === Environment.development;
+    return this.ENVIRONMENT === Environment.DEVELOPMENT;
   }
 
   public isStaging(): boolean {
-    return this.ENVIRONMENT === Environment.staging;
+    return this.ENVIRONMENT === Environment.STAGING;
   }
 
   public isProd(): boolean {
-    return this.ENVIRONMENT === Environment.production;
+    return this.ENVIRONMENT === Environment.PRODUCTION;
   }
 }
 
-const config = new Config();
-
-for (const key of Object.values(Econfig)) {
-  if (!config[key]) {
-    logger.warn(`${key} is not present in config class.`);
-  }
-}
-
-export default config;
+export default new Config();
