@@ -22,6 +22,10 @@ export class MailerService implements OnModuleInit {
    * @returns {boolean}
    */
   public async isEmailValid(email: string): Promise<boolean> {
+    if (config.get('BYPASS_EMAIL_EXISTENCE_CHECK')) {
+      return true;
+    }
+
     return new Promise((resolve, reject) => {
       this.kickBox.verify(email, {}, (err, res) => {
         if (err) return reject(err);

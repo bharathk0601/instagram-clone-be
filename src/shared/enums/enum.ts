@@ -24,6 +24,8 @@ export enum Econfig {
 
   NODE_MAILER_USER = 'NODE_MAILER_USER',
   NODE_MAILER_PASS = 'NODE_MAILER_PASS',
+
+  BYPASS_EMAIL_EXISTENCE_CHECK = 'BYPASS_EMAIL_EXISTENCE_CHECK',
 }
 
 export type TConfig = `${Econfig}`;

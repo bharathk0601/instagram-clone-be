@@ -22,6 +22,8 @@ class Config {
   private readonly NODE_MAILER_USER: string = process.env.NODE_MAILER_USER;
   private readonly NODE_MAILER_PASS: string = process.env.NODE_MAILER_PASS;
 
+  private readonly BYPASS_EMAIL_EXISTENCE_CHECK: boolean = process.env.BYPASS_EMAIL_EXISTENCE_CHECK === 'TRUE';
+
   constructor() {
     switch (this.ENVIRONMENT) {
       case Environment.DEVELOPMENT:
@@ -29,6 +31,7 @@ class Config {
       case Environment.STAGING:
         break;
       case Environment.PRODUCTION:
+        this.BYPASS_EMAIL_EXISTENCE_CHECK = false;
         break;
     }
 
