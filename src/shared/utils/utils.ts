@@ -111,4 +111,18 @@ export class Utils {
   public static getMediaType(base64Str: string): string {
     return base64Str.slice(base64Str.indexOf(':') + 1, base64Str.indexOf('/'));
   }
+
+  /**
+   *
+   * @param {string} html
+   * @param {object} replacer
+   * @returns {string}
+   */
+  public static htmlValSubstituter(html: string, replacer: object) {
+    for (const key in replacer) {
+      html = html.replaceAll(`{${key}}`, replacer[key]);
+    }
+
+    return html;
+  }
 }
