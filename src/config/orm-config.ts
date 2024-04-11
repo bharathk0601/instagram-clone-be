@@ -1,6 +1,6 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
-import config from '@/config/config';
+import { config } from '@/config';
 
 export const DbConfig: PostgresConnectionOptions = {
   type: 'postgres',

@@ -4,7 +4,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DbConfig } from '@/config';
-import config from '@/config/config';
+import { config } from '@/config';
 
 import { UserModule } from './modules/user/user.module';
 import { PostModule } from './modules/post/post.module';

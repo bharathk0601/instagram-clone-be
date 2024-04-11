@@ -1,5 +1,5 @@
 import { ConfigOptions } from 'cloudinary';
-import config from '@/config/config';
+import { config } from '@/config';
 
 export const CloudinaryConfig: ConfigOptions = {
   cloud_name: config.get('CLOUD_NAME'),

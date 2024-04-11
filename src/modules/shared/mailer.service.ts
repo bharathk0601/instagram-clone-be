@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as kickbox from 'kickbox';
 import * as nodemailer from 'nodemailer';
 
-import config from '@/config/config';
+import { config } from '@/config';
 import { NodeMailerConfig } from '@/config/mailer.config';
 import { MailOptions } from '@/shared/interfaces';
 
