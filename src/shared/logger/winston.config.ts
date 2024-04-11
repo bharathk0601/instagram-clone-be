@@ -1,5 +1,5 @@
-import config from '@/config/config';
 import * as winston from 'winston';
+import { Environment } from '../enums';
 const { splat, combine, timestamp, printf, colorize } = winston.format;
 
 const myFormat = printf(({ timestamp, level, message }) => {
@@ -13,7 +13,7 @@ const timezoned = () => {
 };
 
 const format = [timestamp({ format: timezoned }), splat()];
-if (config.isDev()) {
+if (process.env.ENVIRONMENT === Environment.DEVELOPMENT) {
   format.push(colorize({ level: true }));
 }
 format.push(myFormat);
