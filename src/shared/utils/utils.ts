@@ -88,4 +88,25 @@ export class Utils {
       return `error | ${error.toString()} | stack | ${error.stack}`;
     }
   }
+
+  /**
+   *
+   * @param {string} base64Str
+   * @returns {number} - In bytes
+   */
+  public static getFileSize(base64Str: string): number {
+    const str = base64Str.substring(base64Str.indexOf(',') + 1);
+    const decoded = atob(str);
+
+    return decoded.length;
+  }
+
+  /**
+   *
+   * @param {string} base64Str
+   * @returns {string}
+   */
+  public static getMediaType(base64Str: string): string {
+    return base64Str.slice(base64Str.indexOf(':') + 1, base64Str.indexOf('/'));
+  }
 }
