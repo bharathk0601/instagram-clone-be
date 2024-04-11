@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 
 import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 
-import { cloudinaryConfig } from '@/config';
+import { CloudinaryConfig } from '@/config';
 import { Folders } from '@/shared/enums';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class FileService implements OnModuleInit {
   constructor() {}
 
   onModuleInit() {
-    cloudinary.config(cloudinaryConfig);
+    cloudinary.config(CloudinaryConfig);
   }
 
   /**
