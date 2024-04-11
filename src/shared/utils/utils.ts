@@ -63,7 +63,9 @@ export class Utils {
     if (typeof value === 'object') {
       return {};
     }
-    return '*'.repeat(value?.toString().length);
+
+    const len = value?.toString().length;
+    return '*'.repeat(len > 100 ? 100 : len);
   }
 
   /**
