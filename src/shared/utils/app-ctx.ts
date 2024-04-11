@@ -1,3 +1,3 @@
 import logger from '@/shared/logger/logger';
 
-export const ctx: Ctx = { logger };
+export const appCtx: Ctx = { logger };
