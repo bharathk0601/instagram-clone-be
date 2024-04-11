@@ -1,7 +1,7 @@
 export enum Environment {
-  development = 'development',
-  staging = 'staging',
-  production = 'production',
+  DEVELOPMENT = 'development',
+  STAGING = 'staging',
+  PRODUCTION = 'production',
 }
 
 export enum Econfig {
