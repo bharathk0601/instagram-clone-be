@@ -1,8 +1,7 @@
-import { Econfig, Environment } from '@/shared/enums';
-import { IConfig, TConfig } from '@/shared/interfaces';
+import { Econfig, TConfig, Environment } from '@/shared/enums';
 import logger from '@/shared/logger/logger';
 
-class Config implements IConfig {
+class Config {
   private readonly ENVIRONMENT: string = process.env.ENVIRONMENT;
   private readonly POSTGRES_HOST: string = process.env.POSTGRES_HOST;
   private readonly POSTGRES_PORT: number = Number(process.env.POSTGRES_PORT);
