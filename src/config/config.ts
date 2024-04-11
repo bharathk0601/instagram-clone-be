@@ -13,9 +13,9 @@ class Config {
   private readonly THROTTLE_LIMIT: number = 20;
   private readonly THROTTLE_TTL: number = 1000;
 
-  private readonly CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-  private readonly CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-  private readonly CLOUD_NAME = process.env.CLOUD_NAME;
+  private readonly CLOUDINARY_API_KEY: string = process.env.CLOUDINARY_API_KEY;
+  private readonly CLOUDINARY_API_SECRET: string = process.env.CLOUDINARY_API_SECRET;
+  private readonly CLOUD_NAME: string = process.env.CLOUD_NAME;
 
   constructor() {
     switch (this.ENVIRONMENT) {
