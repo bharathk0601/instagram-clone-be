@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
+import * as express from 'express';
 
 import { Logger } from '@/shared/logger';
 import { UnCaughtExceptionFilter } from '@/filters';
@@ -16,6 +17,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new Logger(),
   });
+  app.use(express.json({ limit: '200MB' }));
   app.use(helmet());
   app.useGlobalFilters(new UnCaughtExceptionFilter());
   app.useGlobalInterceptors(new TimeoutInterceptor());
