@@ -1,8 +1,11 @@
-import { Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
-import { TestDTO, getErrResSchema } from '@/shared/dtos';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
-import { UserService } from './user.service';
+
+import { TestDTO, getErrResSchema } from '@/shared/dtos';
 import { Ctx } from '@/decorators/req-ctx.decorator';
+
+import { UserService } from './user.service';
+import { FileService } from '../shared/file.service';
 
 @ApiResponse(getErrResSchema(HttpStatus.UNAUTHORIZED))
 @ApiResponse(getErrResSchema(HttpStatus.BAD_REQUEST))
@@ -11,11 +14,14 @@ import { Ctx } from '@/decorators/req-ctx.decorator';
 @ApiResponse(getErrResSchema(HttpStatus.INTERNAL_SERVER_ERROR))
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly fileSercice: FileService,
+  ) {}
 
-  @Get()
-  async getUser(@Query() dto: TestDTO) {
-    return { message: 'hello from users', dto };
+  @Post()
+  async getUser(@Body() dto: TestDTO, @Ctx() ctx: ReqCtx) {
+    return this.fileSercice.uploadProfilePic(dto.name, ctx);
   }
 
   @Post('/signUp')
