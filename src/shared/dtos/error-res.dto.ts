@@ -1,7 +1,29 @@
 import { HttpStatus } from '@nestjs/common';
 import { ApiProperty, ApiResponseOptions } from '@nestjs/swagger';
 
-export class TooManyRequestResDTO {
+export class UnAuthorizedResDTO {
+  @ApiProperty({ example: 'Unauthorized' })
+  message: string;
+
+  @ApiProperty({ example: true, required: false })
+  regenerateToken?: boolean;
+
+  @ApiProperty({ example: HttpStatus.UNAUTHORIZED })
+  statusCode: number;
+}
+
+export class BadRequestResDTO {
+  @ApiProperty({ example: 'name must be longer than or equal to 5 characters' })
+  message: string;
+
+  @ApiProperty({ example: 'Bad Request', required: false })
+  error?: string;
+
+  @ApiProperty({ example: HttpStatus.BAD_REQUEST })
+  statusCode: number;
+}
+
+export class TooManyRequestsResDTO {
   @ApiProperty({ example: 'Too Many Requests' })
   message: string;
 }
@@ -14,33 +36,11 @@ export class InternalServerErrorResDTO {
   statusCode: number;
 }
 
-export class UnAuthorizedResDTO {
-  @ApiProperty({ example: 'Unauthorized' })
-  message: string;
-
-  @ApiProperty({ example: true, required: false })
-  regenerateToken?: boolean;
-
-  @ApiProperty({ example: HttpStatus.UNAUTHORIZED })
-  statusCode: number;
-}
-
 export class RequestTimeOutResDTO {
   @ApiProperty({ example: 'Request Timeout' })
   message: string;
 
   @ApiProperty({ example: HttpStatus.REQUEST_TIMEOUT })
-  statusCode: number;
-}
-
-export class BadRequestResDTO {
-  @ApiProperty({ example: 'name must be longer than or equal to 5 characters' })
-  message: string;
-
-  @ApiProperty({ example: 'Bad Request', required: false })
-  error?: string;
-
-  @ApiProperty({ example: HttpStatus.BAD_REQUEST })
   statusCode: number;
 }
 
@@ -56,7 +56,7 @@ export function getErrResSchema(status: HttpStatus): ApiResponseOptions {
     case HttpStatus.BAD_REQUEST:
       return { status: status, type: BadRequestResDTO, description: 'Bad Request' };
     case HttpStatus.TOO_MANY_REQUESTS:
-      return { status: status, type: TooManyRequestResDTO, description: 'Too many Requests' };
+      return { status: status, type: TooManyRequestsResDTO, description: 'Too many Requests' };
     case HttpStatus.REQUEST_TIMEOUT:
       return { status: status, type: InternalServerErrorResDTO, description: 'Request Timeout' };
     case HttpStatus.INTERNAL_SERVER_ERROR:
