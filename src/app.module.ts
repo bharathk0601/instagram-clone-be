@@ -6,12 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from '@/config';
 import config from '@/config/config';
 
-import { UserModule } from './module/user/user.module';
-import { PostModule } from './module/post/post.module';
-import { LikeModule } from './module/like/like.module';
-import { CommentModule } from './module/comment/comment.module';
-import { StatusModule } from './module/status/status.module';
-import { SharedModule } from './module/shared/shared.module';
+import { UserModule } from './modules/user/user.module';
+import { PostModule } from './modules/post/post.module';
+import { LikeModule } from './modules/like/like.module';
+import { CommentModule } from './modules/comment/comment.module';
+import { StatusModule } from './modules/status/status.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @Module({
   imports: [
