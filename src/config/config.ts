@@ -17,6 +17,11 @@ class Config {
   private readonly CLOUDINARY_API_SECRET: string = process.env.CLOUDINARY_API_SECRET;
   private readonly CLOUD_NAME: string = process.env.CLOUD_NAME;
 
+  private readonly KICK_BOX_API_KEY: string = process.env.KICK_BOX_API_KEY;
+
+  private readonly NODE_MAILER_USER: string = process.env.NODE_MAILER_USER;
+  private readonly NODE_MAILER_PASS: string = process.env.NODE_MAILER_PASS;
+
   constructor() {
     switch (this.ENVIRONMENT) {
       case Environment.DEVELOPMENT:
