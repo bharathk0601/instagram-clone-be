@@ -1,8 +1,8 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { reqFields } from '@/shared/constants/secret-log-fields';
 
-import { Utils } from 'src/shared/utils/utils';
+import { reqFields } from '@/shared/constants';
+import { Utils } from '@/shared/utils';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
