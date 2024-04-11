@@ -1,11 +1,4 @@
 import { Logger } from 'src/shared/logger';
-import { Econfig } from '../enums';
-
-export type TConfig = `${Econfig}`;
-
-export interface IConfig {
-  get<T>(key: Econfig): T;
-}
 
 export interface ObjectLiteral {
   [key: string]: any;
