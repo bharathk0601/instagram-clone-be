@@ -21,6 +21,8 @@ export enum Econfig {
   CLOUD_NAME = 'CLOUD_NAME',
 }
 
+export type TConfig = `${Econfig}`;
+
 export enum Folders {
   BASE_PATH = 'instagram-clone-be',
   PRIFILE_PIC = 'profile-pic',
