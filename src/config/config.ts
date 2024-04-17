@@ -26,14 +26,21 @@ class Config {
 
   private readonly BYPASS_EMAIL_EXISTENCE_CHECK: boolean = process.env.BYPASS_EMAIL_EXISTENCE_CHECK === 'TRUE';
 
+  private readonly BCRYPT_SALT_ROUND: number = Number(process.env.BCRYPT_SALT_ROUND);
+
+  private readonly API_BASE_URL: string;
+
   constructor() {
     switch (this.ENVIRONMENT) {
       case Environment.DEVELOPMENT:
+        this.API_BASE_URL = 'http://localhost:3000';
         break;
       case Environment.STAGING:
+        this.API_BASE_URL = 'https://instagram-clone-be-bc40c4e1de37.herokuapp.com';
         break;
       case Environment.PRODUCTION:
         this.BYPASS_EMAIL_EXISTENCE_CHECK = false;
+        this.API_BASE_URL = 'https://instagram-clone-be-bc40c4e1de37.herokuapp.com';
         break;
     }
 
