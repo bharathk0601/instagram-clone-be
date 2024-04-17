@@ -13,7 +13,7 @@ export class UnAuthorizedResDTO {
 }
 
 export class BadRequestResDTO {
-  @ApiProperty({ example: 'name must be longer than or equal to 5 characters' })
+  @ApiProperty({ example: 'name must be longer than or equal to 2 characters' })
   message: string;
 
   @ApiProperty({ example: 'Bad Request', required: false })
