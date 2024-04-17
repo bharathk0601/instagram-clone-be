@@ -1,7 +1,11 @@
-import * as crypto from 'crypto';
-import { ObjectLiteral } from '../interfaces/interface';
+import * as bcrypt from 'bcrypt';
+import ShortUniqueId from 'short-unique-id';
+
+import { ObjectLiteral } from '@/shared/interfaces';
+import { config } from '@/config';
 
 export class Utils {
+  private static uid = new ShortUniqueId();
   /**
    *
    * @param {any} value
@@ -15,8 +19,8 @@ export class Utils {
    *
    * @returns {string}
    */
-  public static genUUID(): string {
-    return crypto.randomBytes(16).toString('hex');
+  public static genUUID(len = 16): string {
+    return this.uid.stamp(len);
   }
 
   /**
@@ -24,7 +28,7 @@ export class Utils {
    * @param {unknown} data
    * @returns {boolean}
    */
-  public static isObj(data: unknown) {
+  public static isObj(data: unknown): boolean {
     return typeof data === 'object' && data !== null;
   }
 
@@ -124,5 +128,36 @@ export class Utils {
     }
 
     return html;
+  }
+
+  /**
+   *
+   * @param {number} len
+   * @returns {string}
+   */
+  public static genRandNo(len: number = 1): string {
+    return Math.random()
+      .toString()
+      .slice(2, len + 2);
+  }
+
+  /**
+   *
+   * @param {string} val
+   * @param {number} saltRound
+   * @returns {Promise<string>}
+   */
+  public static async hash(val: string, saltRound: number = config.get('BCRYPT_SALT_ROUND')): Promise<string> {
+    return await bcrypt.hash(val, saltRound);
+  }
+
+  /**
+   *
+   * @param  {string} plainVal
+   * @param {string} hashedVal
+   * @returns {Promise<boolean>}
+   */
+  public static async compareHash(plainVal: string, hashedVal: string): Promise<boolean> {
+    return await bcrypt.compare(plainVal, hashedVal);
   }
 }
