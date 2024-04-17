@@ -11,7 +11,7 @@ import { RepositoryModule } from '../repository';
   providers: [AuthService],
   controllers: [AuthController],
 })
-export class UserModule {
+export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(ReqCtxMiddleware).forRoutes(AuthController).apply(LoggerMiddleware).forRoutes(AuthController);
   }

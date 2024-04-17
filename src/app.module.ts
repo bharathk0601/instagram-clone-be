@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DbConfig, ThrottleConfig } from '@/config';
 
-import { UserModule } from './modules/auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 import { PostModule } from './modules/post/post.module';
 import { LikeModule } from './modules/like/like.module';
 import { CommentModule } from './modules/comment/comment.module';
@@ -17,6 +18,7 @@ import { RepositoryModule } from './modules/repository/repository.module';
   imports: [
     TypeOrmModule.forRoot(DbConfig),
     ThrottlerModule.forRoot(ThrottleConfig),
+    AuthModule,
     UserModule,
     PostModule,
     LikeModule,
