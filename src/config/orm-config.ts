@@ -9,7 +9,7 @@ export const DbConfig: PostgresConnectionOptions = {
   username: config.get('POSTGRES_USER'),
   password: config.get('POSTGRES_PASSWORD'),
   database: config.get('POSTGRES_DATABASE'),
-  entities: [],
+  entities: [__dirname + '/../**/*.entity.js'],
   synchronize: false,
   ssl: !config.isDev(),
 };
