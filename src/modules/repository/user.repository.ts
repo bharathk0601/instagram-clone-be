@@ -55,13 +55,13 @@ export class UserRepository {
 
   /**
    *
-   * @param {FindOptionsWhere<User>} condition
+   * @param {FindOptionsWhere<User> | FindOptionsWhere<User[]>} condition
    * @param {FindOptionsSelect<User>} select
    * @returns {Promise<User>}
    */
-  public findUser(condition: FindOptionsWhere<User>, select: FindOptionsSelect<User>): Promise<User> {
+  public findUser(condition: FindOptionsWhere<User> | FindOptionsWhere<User[]>, select: FindOptionsSelect<User>): Promise<User> {
     return this.user.findOne({
-      where: condition,
+      where: [],
       select: select,
     });
   }

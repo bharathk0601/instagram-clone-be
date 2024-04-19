@@ -32,6 +32,9 @@ export enum Econfig {
   API_BASE_URL = 'API_BASE_URL',
 
   BCRYPT_SALT_ROUND = 'BCRYPT_SALT_ROUND',
+
+  JWT_PRIVATE_KEY = 'JWT_PRIVATE_KEY',
+  JWT_PUBLIC_KEY = 'JWT_PUBLIC_KEY',
 }
 
 export type TConfig = `${Econfig}`;

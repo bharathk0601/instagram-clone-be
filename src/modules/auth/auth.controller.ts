@@ -9,6 +9,8 @@ import {
   EmailOTPVerifyReqDTO,
   ResetPasswordTokenGenReqDTO,
   ResetPasswordReqDTO,
+  LoginReqDTO,
+  LoginResDTO,
 } from '@/shared/dtos';
 import { Ctx } from '@/decorators/req-ctx.decorator';
 
@@ -82,5 +84,11 @@ export class AuthController {
   @Put('/resetPassword')
   resetPassword(@Body() resetPasswordReq: ResetPasswordReqDTO, @Ctx() ctx: ReqCtx) {
     return this.authService.resetPassword(ctx, resetPasswordReq);
+  }
+
+  @ApiResponse({ status: HttpStatus.CREATED, type: LoginResDTO })
+  @Post('/login')
+  login(@Body() loginReq: LoginReqDTO, @Ctx() ctx: ReqCtx) {
+    return this.authService.login(ctx, loginReq);
   }
 }

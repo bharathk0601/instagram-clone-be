@@ -30,6 +30,9 @@ class Config {
 
   private readonly API_BASE_URL: string;
 
+  private readonly JWT_PRIVATE_KEY: string = process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n');
+  private readonly JWT_PUBLIC_KEY: string = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n');
+
   constructor() {
     switch (this.ENVIRONMENT) {
       case Environment.DEVELOPMENT:

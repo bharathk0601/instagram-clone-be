@@ -1,7 +1,17 @@
 import { BadRequestException, ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as crypto from 'crypto';
 
-import { MessageDTO, SignUpReqTO, EmailOTPGenReqDTO, EmailOTPVerifyReqDTO, ResetPasswordTokenGenReqDTO, ResetPasswordReqDTO } from '@/shared/dtos';
+import {
+  MessageDTO,
+  SignUpReqTO,
+  EmailOTPGenReqDTO,
+  EmailOTPVerifyReqDTO,
+  ResetPasswordTokenGenReqDTO,
+  ResetPasswordReqDTO,
+  LoginReqDTO,
+  LoginResDTO,
+} from '@/shared/dtos';
 import { TUser, TUserProfile } from '@/shared/entities';
 import { Utils } from '@/shared/utils';
 import { APP_CONSTANTS } from '@/shared/constants';
@@ -15,6 +25,7 @@ export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly mailerService: MailerService,
+    private readonly jwtService: JwtService,
   ) {}
 
   /**
@@ -206,5 +217,27 @@ export class AuthService {
     await this.userRepository.updateUser({ userId: currentUser.userId }, { password: hashedPassword });
 
     return { message: 'success.' };
+  }
+
+  public async login(ctx: ReqCtx, loginReq: LoginReqDTO): Promise<LoginResDTO> {
+    const currentUser = await this.userRepository.findUser(
+      { email: loginReq.email },
+      {
+        email: true,
+        password: true,
+        userId: true,
+      },
+    );
+    if (!currentUser) {
+      throw new BadRequestException('Please signup first.');
+    }
+    ctx.logger.updateContext(`userId | ${currentUser.userId}`);
+
+    if (!(await Utils.compareHash(loginReq.password, currentUser.password))) {
+      throw new BadRequestException('Invalid email or password.');
+    }
+
+    const token = await this.jwtService.signAsync({ userId: currentUser.userId });
+    return { token };
   }
 }
