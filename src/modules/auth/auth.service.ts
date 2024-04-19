@@ -15,7 +15,7 @@ import {
 import { TUser, TUserProfile } from '@/shared/entities';
 import { Utils } from '@/shared/utils';
 import { APP_CONSTANTS } from '@/shared/constants';
-import { config } from '@/config';
+import { config, redis } from '@/config';
 
 import { UserRepository } from '../repository';
 import { MailerService } from '../shared/mailer.service';
@@ -219,6 +219,12 @@ export class AuthService {
     return { message: 'success.' };
   }
 
+  /**
+   *
+   * @param {ReqCtx} ctx
+   * @param {LoginReqDTO} loginReq
+   * @returns {Promise<LoginResDTO>}
+   */
   public async login(ctx: ReqCtx, loginReq: LoginReqDTO): Promise<LoginResDTO> {
     const currentUser = await this.userRepository.findUser(
       { email: loginReq.email },
@@ -237,7 +243,10 @@ export class AuthService {
       throw new BadRequestException('Invalid email or password.');
     }
 
-    const token = await this.jwtService.signAsync({ userId: currentUser.userId });
+    const tokenId = Utils.genUUID(APP_CONSTANTS.TOKEN_ID_LEN);
+    const token = await this.jwtService.signAsync({ userId: currentUser.userId, tokenId });
+    await redis.hset(`user_${currentUser.userId}`, 'tokenId', tokenId);
+
     return { token };
   }
 }
