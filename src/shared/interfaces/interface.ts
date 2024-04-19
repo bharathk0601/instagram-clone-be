@@ -9,6 +9,11 @@ export interface ErrDetails {
   stack: string;
 }
 
+export interface IJwtPayload {
+  userId: string;
+  tokenId: string;
+}
+
 /* declare global types here */
 
 declare global {

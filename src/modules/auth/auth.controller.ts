@@ -1,5 +1,5 @@
-import { Body, Controller, HttpStatus, Post, Put } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   getErrResSchema,
@@ -15,6 +15,7 @@ import {
 import { Ctx } from '@/decorators/req-ctx.decorator';
 
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from '@/guards/auth/jwt-auth.guard';
 
 @ApiTags('Auth')
 @ApiResponse(getErrResSchema(HttpStatus.BAD_REQUEST))
@@ -90,5 +91,12 @@ export class AuthController {
   @Post('/login')
   login(@Body() loginReq: LoginReqDTO, @Ctx() ctx: ReqCtx) {
     return this.authService.login(ctx, loginReq);
+  }
+
+  @Get('/protected')
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard)
+  protected() {
+    return { message: 'hi ' };
   }
 }
