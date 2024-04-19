@@ -232,12 +232,17 @@ export class AuthService {
         email: true,
         password: true,
         userId: true,
+        isVerified: true,
       },
     );
     if (!currentUser) {
       throw new BadRequestException('Please signup first.');
     }
     ctx.logger.updateContext(`userId | ${currentUser.userId}`);
+
+    if (!currentUser.isVerified) {
+      throw new BadRequestException('Please verify your email');
+    }
 
     if (!(await Utils.compareHash(loginReq.password, currentUser.password))) {
       throw new BadRequestException('Invalid email or password.');
