@@ -17,6 +17,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new Logger(),
   });
+  app.enableCors();
   app.use(express.json({ limit: '200MB' }));
   app.use(helmet());
   app.useGlobalFilters(new UnCaughtExceptionFilter());
